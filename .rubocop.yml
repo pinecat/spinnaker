@@ -1,0 +1,28 @@
+AllCops:
+  TargetRubyVersion: 2.6
+
+Metrics/AbcSize:
+  Enabled: true
+  Exclude:
+    - lib/spinnaker/api.rb
+
+Metrics/MethodLength:
+  Enabled: true
+  Exclude:
+    - lib/spinnaker/api.rb
+
+Style/ClassVars:
+  Enabled: true
+  Exclude:
+    - lib/spinnaker.rb
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 120
