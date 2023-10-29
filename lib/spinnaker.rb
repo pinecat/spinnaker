@@ -77,6 +77,9 @@ class Spinnaker
   end
 
   def record(path, status, body)
+    # Don't log favicon requests
+    return if path.eql? "/favicon.ico"
+
     # Check if the page exists
     exists = (status >= 400 && status < 500 ? false : true)
 

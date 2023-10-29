@@ -15,6 +15,8 @@ class Spinnaker # :nodoc:
         t.string   :title, default: nil
         t.string   :meta, default: nil
         t.boolean  :exists, default: false
+
+        t.timestamps null: false
       end
 
       add_index PAGES_TABLE, :path

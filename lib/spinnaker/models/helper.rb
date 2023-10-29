@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Spinnaker # :nodoc:
   # Helper methods for the models
   module Helper
