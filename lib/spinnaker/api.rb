@@ -1,5 +1,11 @@
 # frozen_string_literal: true
 
+class Time
+  def the_last_24_hours
+    (Time.now - 1.day).beginning_of_hour
+  end
+end
+
 class Spinnaker
   # API endpoints for querying the page data.
   class API
@@ -26,47 +32,23 @@ class Spinnaker
       end
     end
 
-    # Define all API routes here (TODO: Need a better solution for this)
-    # TODO: These endpoints could be auto-generated with a list of timeframes/periods
+    # Define all API routes here
     def routes
-      # /latest, /
-      # Default API endpoint, serves metrics for the last 24 hours.
-      route "", "latest" do
-        period = :the_last_24_hours
-        {
-          visits: Visit.where("timestamp > ?", Helper.period(period)).count,
-          pages: Helper.latest(period)
-        }.to_json
-      end
+      eps = {
+        "" => :the_last_24_hours,
+        "today" => :beginning_of_day,
+        "week" => :beginning_of_week,
+        "month" => :beginning_of_month
+      }
 
-      # /today
-      # Serves metrics for the current day.
-      route "today" do
-        period = :today
-        {
-          visits: Visit.where("timestamp > ?", Helper.period(period)).count,
-          pages: Helper.latest(period).as_json(period)
-        }.to_json
-      end
-
-      # /week
-      # Serves metrics for the current day.
-      route "week" do
-        period = :this_week
-        {
-          visits: Visit.where("timestamp > ?", Helper.period(period)).count,
-          pages: Helper.latest(period).as_json(period)
-        }.to_json
-      end
-
-      # /month
-      # Serves metrics for the current day.
-      route "week" do
-        period = :this_month
-        {
-          visits: Visit.where("timestamp > ?", Helper.period(period)).count,
-          pages: Helper.latest(period).as_json(period)
-        }.to_json
+      eps.each do |path, timeframe|
+        route path do
+          period = Time.now.public_send(timeframe)
+          {
+            visits: Visit.where("timestamp > ?", Helper.period(timeframe)).count,
+            pages: Helper.latest(period).as_json(timeframe)
+          }.to_json
+        end
       end
     end
   end
