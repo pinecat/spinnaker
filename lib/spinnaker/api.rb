@@ -9,7 +9,7 @@ class Spinnaker
       routes
     end
 
-    # Called with a paht to retrieve data from one of the routes.
+    # Called with a path to retrieve data from one of the routes.
     def handle(endpoint)
       blk = @endpoints[endpoint]
       return [404, {}, ["Not found"]] if blk.nil?
@@ -26,8 +26,7 @@ class Spinnaker
       end
     end
 
-    # Define all API routes here (TODO: Need a better solution for this)
-    # TODO: These endpoints could be auto-generated with a list of timeframes/periods
+    # Define all API routes here
     def routes
       # /latest, /
       # Default API endpoint, serves metrics for the last 24 hours.
@@ -50,7 +49,7 @@ class Spinnaker
       end
 
       # /week
-      # Serves metrics for the current day.
+      # Serves metrics for the current week.
       route "week" do
         period = :this_week
         {
@@ -60,8 +59,8 @@ class Spinnaker
       end
 
       # /month
-      # Serves metrics for the current day.
-      route "week" do
+      # Serves metrics for the current month.
+      route "month" do
         period = :this_month
         {
           visits: Visit.where("timestamp > ?", Helper.period(period)).count,

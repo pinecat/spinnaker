@@ -1,6 +1,13 @@
 # Spinnaker
 
-Spinnaker is a drop-in tool for collecting and serving website page metrics. It's designed for use with [Jekyll](https://github.com/jekyll/jekyll) (and [Lanyon](https://github.com/stomar/lanyon)) in mind, but since it's just middleware for [Rack](https://github.com/rack/rack), it will work for any compatible frameworks. Spinnaker is quite private out of the box, as it only tracks what pages are being requested, and at what times those requests occur.
+Spinnaker is a drop-in tool for collecting and serving website page
+metrics. It's designed for use with
+[Jekyll](https://github.com/jekyll/jekyll) (and
+[Lanyon](https://github.com/stomar/lanyon)) in mind, but since it's just
+middleware for [Rack](https://github.com/rack/rack), it will work for
+any compatible frameworks. Spinnaker is quite private out of the box, as
+it only tracks what pages are being requested, and at what times those
+requests occur.
 
 ## Installation
 
@@ -9,7 +16,7 @@ To add spinnaker to your project, run:
 bundle add spinnaker
 ```
 
-You could also install it manuall with `gem install spinnaker`.
+You could also install it manually with `gem install spinnaker`.
 
 Then `use` it in your config.ru file.
 ```ruby
@@ -47,7 +54,8 @@ run Lanyon.application
 
 ## Usage
 
-Right now, you can query data over a specified time period on the API. Asumming the endpoint is '/spinnaker':
+Right now, you can query data over a specified time period on the API.
+Asumming the endpoint is '/spinnaker':
 | Request Type | Path | Data |
 | - | - | - |
 | GET | /spinnaker{/latest} | Get page data for the last 24 hours |
